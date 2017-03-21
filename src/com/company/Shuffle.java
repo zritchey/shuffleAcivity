@@ -1,40 +1,87 @@
 package com.company;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
+import java.util.Scanner;
 
-/**
+/**https://github.com/zritchey/shuffleAcivity.git
  * Created by zr162 on 3/21/17.
  */
 public class Shuffle {
-    public void shuffle(ArrayList a){
-        String
-        for (int i=0;i<a.size();i++){
+
+    private ArrayList<String> group;
+    public Shuffle(){
+        group=new ArrayList();
+    }
+    public void FileRead(String path){
+        try{
+            Scanner sc=new Scanner(new File(path));
+            while (sc.hasNextLine()){
+                group.add(sc.nextLine());
+            }
+            sc.close();
+        }
+        catch (IOException ioe){
+
+        }
+
+    }
+    public void Shuffle(){
+        Shuffle(group);
+    }
+    public void Shuffle(ArrayList<String> a){
+        for(int j=0;j<20;j++) {
+            int rndm = new Random().nextInt(a.size() / 2);
+            if (rndm==0)
+                rndm++;
+            ArrayList<String> b = new ArrayList();
+            ArrayList<String> c = new ArrayList<>();
+            for (int i = 0; i < rndm; i++)
+                b.add(a.get(i));
+            for (int i = rndm; i < a.size(); i++)
+                c.add(a.get(i));
+            b = merge(c, b);
+
+            for (int i = 0; i < b.size(); i++) {
+                a.set(i, b.get(i));
+            }
+        }
+
+    }
+    public void print(){
+        System.out.println(Arrays.toString(group.toArray()));
+        for (int i=0;i<group.size();i++){
 
         }
     }
-    public void Shuffle(String a[]){
-        int rndm=new Random().nextInt(a.length/2);
-        String b[]=new String[rndm];
-        String c[]=new String [a.length-rndm];
-        System.arraycopy(a,0,b,0,rndm);
-        System.arraycopy(a,rndm,c,0,a.length-rndm);
-
-
-    }
     public  ArrayList<String> merge(ArrayList<String> a,ArrayList<String> b){
-
         if(b.size()>a.size())
             return merge(b,a);
         int l1=a.size();
         int l2=b.size();
         ArrayList<String> c=new ArrayList<String>();
+        boolean pass=false;
         for (int i=0;i<l1+l2;i++){
-            if (i%(i/b.size())==0){
 
-                c.add(b.get(0));
-
+            if (i%(l1/l2)==0&&!pass&&b.size()!=0){
+                pass=true;
+                c.add(b.remove(0));
+            }
+            else if(b.size()!=0 ){
+                pass=false;
+                c.add(a.remove(0));
+            }
+            else {
+                l2=a.size();
+                for (int j=0;j<l2;j++){
+                    c.add(j,a.remove(0));
+                }
+                break;
             }
         }
+        return c;
     }
 }
