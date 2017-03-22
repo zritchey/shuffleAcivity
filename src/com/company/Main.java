@@ -8,5 +8,13 @@ public class Main {
         deck.print();
         deck.Shuffle();
         deck.print();
+        deck.shuffleFile("Class.txt");
+        deck.print();
+        deck.shuffleFile("Class.txt");
+        deck.print();
+        deck.shuffleFile("Class.txt");
+        deck.print();
+        deck.shuffleFile("Class.txt");
+        deck.print();
     }
 }

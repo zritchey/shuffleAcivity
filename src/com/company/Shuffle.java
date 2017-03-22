@@ -84,4 +84,10 @@ public class Shuffle {
         }
         return c;
     }
+    public ArrayList<String> shuffleFile(String path){
+        group.clear();
+        FileRead(path);
+        Shuffle(group);
+        return group;
+    }
 }
